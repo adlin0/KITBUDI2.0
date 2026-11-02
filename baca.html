@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baca Buku Cerita - Kit Budi</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fc;
+      color: #263f78;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: white;
+    }
+
+    .logo {
+      width: 75px;
+    }
+
+    button {
+      border: none;
+      border-radius: 25px;
+      padding: 12px 20px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .home {
+      background: #ed9c2f;
+    }
+
+    .book-heading {
+      text-align: center;
+      padding: 15px;
+    }
+
+    .book-heading h2 {
+      margin: 5px;
+    }
+
+    .book-frame {
+      width: 100%;
+      height: 75vh;
+      border: none;
+      background: white;
+    }
+
+    .bottom-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .back {
+      background: #777;
+    }
+
+    .next {
+      background: #299b63;
+    }
+
+    @media (max-width: 600px) {
+      .book-frame {
+        height: 70vh;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <img src="assets/images/logo-kit-budi.jpg"
+         class="logo" alt="Logo Kit Budi">
+
+    <button class="home"
+      onclick="location.href='index.html'">
+      🏠 HALAMAN UTAMA
+    </button>
+  </header>
+
+  <div class="book-heading">
+    <h2>📖 MASA MEMBACA!</h2>
+    <p id="bookTitle"></p>
+  </div>
+
+  <iframe
+    id="bookFrame"
+    class="book-frame"
+    title="Buku cerita pilihan"
+    allowfullscreen>
+  </iframe>
+
+  <div class="bottom-buttons">
+
+    <button class="back"
+      onclick="location.href='pilihbuku.html'">
+      ↩ KEMBALI KE PILIH BUKU
+    </button>
+
+    <button class="next" id="continueButton">
+      SAYA SUDAH SELESAI MEMBACA → TERUSKAN KE PERMAINAN
+    </button>
+
+  </div>
+
+  <script>
+    const bookUrl =
+      sessionStorage.getItem("selectedBookUrl");
+
+    const bookTitle =
+      sessionStorage.getItem("selectedBookTitle");
+
+    const bookFrame =
+      document.getElementById("bookFrame");
+
+    document.getElementById("bookTitle").textContent =
+      bookTitle || "Buku Cerita";
+
+    if (bookUrl) {
+      bookFrame.src = bookUrl;
+    } else {
+      document.getElementById("bookTitle").textContent =
+        "Pautan buku tidak dijumpai. Sila pilih buku semula.";
+    }
+
+    document.getElementById("continueButton")
+      .addEventListener("click", function () {
+        if (!bookUrl) {
+          alert("Sila pilih buku terlebih dahulu.");
+          return;
+        }
+
+        location.href = "pilihpermainan.html";
+      });
+  </script>
+
+</body>
+</html>
